@@ -1,0 +1,36 @@
+imaqtpie log file
+========
+<05-21-2015  1147>  Main Collect object created and is ready to run
+<05-21-2015  1151>  Main Collect object created and is ready to run
+<05-21-2015  1207>  Main Collect object created and is ready to run
+<05-21-2015  1213>  Main Collect object created and is ready to run
+<05-21-2015  1214>  Main Collect object created and is ready to run
+<05-21-2015  1216>  Main Collect object created and is ready to run
+<05-21-2015  1217>  Main Collect object created and is ready to run
+<05-22-2015  1357>  Main Collect object created and is ready to run
+<05-22-2015  1359>  Main Collect object created and is ready to run
+<05-22-2015  1401>  Main Collect object created and is ready to run
+<05-22-2015  1402>  Main Collect object created and is ready to run
+<08-06-2015  0509>  Main Collect object created yet channel is offline
+<08-06-2015  0514>  Main Collect object created yet channel is offline
+<08-10-2015  0534>  Chat bot initialized.
+    Viewer Count: 7050 
+    Time Delay: None
+<08-10-2015  0537>  Chat bot initialized.
+    Viewer Count: 7059 
+    Time Delay: None
+<08-10-2015  0540>  Chat bot initialized.
+    Viewer Count: 7185 
+    Time Delay: None
+<08-10-2015  0543>  Chat bot initialized.
+    Viewer Count: 7511 
+    Time Delay: None
+<08-12-2015  0838>  Chat bot initialized.
+    Viewer Count: 19597 
+    Time Delay: None
+<08-12-2015  0853>  Chat bot initialized.
+    Viewer Count: 15258 
+    Time Delay: None
+<08-12-2015  0908>  Chat bot initialized.
+    Viewer Count: 15243 
+    Time Delay: None
