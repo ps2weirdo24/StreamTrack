@@ -3,8 +3,10 @@
 
 from datetime import timedelta
 import matplotlib.pyplot as plt
+import numpy as np
+import subprocess 
 
-raw_file = open("sample_chat.txt")
+raw_file = open("tsm_doublelift_chat.txt")
 
 raw_list = raw_file.readlines()
 
@@ -32,11 +34,12 @@ for item in raw_list:
 
 By this point in the script GLOB_LIST has been created and populated with lists that contain 3 strings,
 
-time message was entered [HH:MM:SS] , username of sender and finally the message.
+time message was entered [HH:MM:SS] , username of sender and finally the message. ye ye
 
 """
 
 message_count = len(GLOB_LIST)
+print "message count: " + str(message_count)
 
 last_index = int(message_count - 1)
 
@@ -47,6 +50,7 @@ end_time = timedelta(seconds=int(GLOB_LIST[last_index][0][6:]),minutes=int(GLOB_
 time_elapsed = (end_time - start_time)
 
 total_seconds = time_elapsed.total_seconds()
+print total_seconds
 
 messages_per_second = (float(message_count) / float(total_seconds))
 
@@ -57,16 +61,16 @@ for item in GLOB_LIST:
 	new_time_obj = int((new_time_obj - start_time).total_seconds())
 	only_time_list.append(new_time_obj)
 
-""" Next I will focus on plotting the points and changing things like step size and starting points """
+""" Next I will focus on plotting the points and changing things like step size and starting points. oui, oui """
 
-STEP_SIZE = 7
+STEP_SIZE = 15
 
-x_axis_list = range(0, message_count, STEP_SIZE)
+x_axis_list = range(0, int(total_seconds), STEP_SIZE)
 
 y_axis_list = ([0] * len(x_axis_list))
 
 lower_limit = 0
-higher_limit = 4
+higher_limit = STEP_SIZE
 adding_index = 0
 
 for item in only_time_list:
@@ -81,14 +85,59 @@ for item in only_time_list:
 		else:
 			break
 	else:
-		print "oops"
+		print item
 
 
-plt.plot(x_axis_list, y_axis_list)
+#plt.plot(x_axis_list, y_axis_list)
 
-plt.show()
+#plt.show()
 
-print "DONE"
+listoftimes = y_axis_list
+print listoftimes
+print len(listoftimes)
 
-# time_delta_1 = timedelta(seconds=int(example_time_1[6:]),minutes=int(example_time_1[3:5]),hours=int(example_time_1[0:2]))
-# time_delta_2 = timedelta(seconds=int(example_time_2[6:]),minutes=int(example_time_2[3:5]),hours=int(example_time_2[0:2]))
+meanoftimes = np.mean(listoftimes)
+print meanoftimes
+
+stdoftimes = np.std(listoftimes)
+print stdoftimes
+
+one_std = (meanoftimes + stdoftimes)
+two_std = meanoftimes + (2.25 * stdoftimes)
+
+countindex = 0
+timestamplist = []
+
+for item in listoftimes:
+	if item > one_std:
+		timestamplist.append(str(countindex))
+		countindex = countindex + STEP_SIZE
+	else:
+		countindex = countindex + STEP_SIZE
+
+print timestamplist
+
+countindex2 = 0
+timestamplist2 = []
+
+for item in listoftimes:
+	if item > two_std:
+		timestamplist2.append(str(countindex2))
+		countindex2 = countindex2 + STEP_SIZE
+	else:
+		countindex2 = countindex2 + STEP_SIZE
+
+print timestamplist2
+
+finaltimelist2 = []
+
+for item in timestamplist2:
+	minutes = int(item)/60
+	secondsfor = int(item) % 60
+	finalinput = str(minutes) + ":" + str(secondsfor)
+	finaltimelist2.append(finalinput)
+
+print finaltimelist2
+"""
+This portion will now try to cut the clips 
+"""

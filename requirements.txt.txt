@@ -1,0 +1,9 @@
+git
+ffmpeg
+numpy (python library)
+python 2.7
+SoX
+Livestreamer
+unirest (python library)
+pip
+twisted (python library)
