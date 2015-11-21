@@ -4,9 +4,8 @@
 from datetime import timedelta
 import matplotlib.pyplot as plt
 import numpy as np
-import subprocess 
 
-raw_file = open("tsm_doublelift_chat.txt")
+raw_file = open("test/flosd.txt")
 
 raw_list = raw_file.readlines()
 
@@ -31,7 +30,6 @@ for item in raw_list:
 	
 
 """
-
 By this point in the script GLOB_LIST has been created and populated with lists that contain 3 strings,
 
 time message was entered [HH:MM:SS] , username of sender and finally the message. ye ye
@@ -39,18 +37,14 @@ time message was entered [HH:MM:SS] , username of sender and finally the message
 """
 
 message_count = len(GLOB_LIST)
-print "message count: " + str(message_count)
+# print "message count: " + str(message_count)
 
 last_index = int(message_count - 1)
-
 start_time = timedelta(seconds=int(GLOB_LIST[0][0][6:]),minutes=int(GLOB_LIST[0][0][3:5]),hours=int(GLOB_LIST[0][0][0:2]))
-
 end_time = timedelta(seconds=int(GLOB_LIST[last_index][0][6:]),minutes=int(GLOB_LIST[last_index][0][3:5]),hours=int(GLOB_LIST[last_index][0][0:2]))
-
 time_elapsed = (end_time - start_time)
-
-total_seconds = time_elapsed.total_seconds()
-print total_seconds
+total_seconds = int(time_elapsed.total_seconds())
+# print total_seconds
 
 messages_per_second = (float(message_count) / float(total_seconds))
 
@@ -61,73 +55,56 @@ for item in GLOB_LIST:
 	new_time_obj = int((new_time_obj - start_time).total_seconds())
 	only_time_list.append(new_time_obj)
 
-""" Next I will focus on plotting the points and changing things like step size and starting points. oui, oui """
+# Next I will focus on plotting the points and changing things like step size and starting points.
 
-STEP_SIZE = 15
+# STEP_SIZE = 1
 
-x_axis_list = range(0, int(total_seconds), STEP_SIZE)
+# x_axis_list = range(0, int(total_seconds), STEP_SIZE)
 
-y_axis_list = ([0] * len(x_axis_list))
+# y_axis_list = ([0] * len(x_axis_list))
 
-lower_limit = 0
-higher_limit = STEP_SIZE
-adding_index = 0
+# lower_limit = 0
+# higher_limit = STEP_SIZE
+# adding_index = 0
 
-for item in only_time_list:
-	if (item >= lower_limit) and (item <= higher_limit):
-		y_axis_list[adding_index] += 1
-	elif (item >= higher_limit):
-		adding_index += 1
-		lower_limit += STEP_SIZE
-		higher_limit += STEP_SIZE
-		if adding_index <= (len(y_axis_list) - 1):
-			y_axis_list[adding_index] += 1
-		else:
-			break
-	else:
-		print item
+# for item in only_time_list:
+# 	if (item >= lower_limit) and (item <= higher_limit):
+# 		y_axis_list[adding_index] += 1
+# 	elif (item >= higher_limit):
+# 		adding_index += 1
+# 		lower_limit += STEP_SIZE
+# 		higher_limit += STEP_SIZE
+# 		if adding_index <= (len(y_axis_list) - 1):
+# 			y_axis_list[adding_index] += 1
+# 		else:
+# 			break
+# 	else:
+# 		print item
 
+# time_list = y_axis_list
 
-#plt.plot(x_axis_list, y_axis_list)
+time_list = []
 
-#plt.show()
+for item in range((total_seconds + 1)):
+	time_list.append(only_time_list.count(item))
 
-listoftimes = y_axis_list
-print listoftimes
-print len(listoftimes)
+meanoftimes = np.mean(time_list)
 
-meanoftimes = np.mean(listoftimes)
-print meanoftimes
+stdoftimes = np.std(time_list)
 
-stdoftimes = np.std(listoftimes)
-print stdoftimes
-
-one_std = (meanoftimes + stdoftimes)
-two_std = meanoftimes + (2.25 * stdoftimes)
-
-countindex = 0
-timestamplist = []
-
-for item in listoftimes:
-	if item > one_std:
-		timestamplist.append(str(countindex))
-		countindex = countindex + STEP_SIZE
-	else:
-		countindex = countindex + STEP_SIZE
-
-print timestamplist
+two_std = meanoftimes + (6 * stdoftimes)
 
 countindex2 = 0
 timestamplist2 = []
 
-for item in listoftimes:
+for item in time_list:
 	if item > two_std:
 		timestamplist2.append(str(countindex2))
-		countindex2 = countindex2 + STEP_SIZE
+		countindex2 = countindex2 + 1
 	else:
-		countindex2 = countindex2 + STEP_SIZE
+		countindex2 = countindex2 + 1
 
-print timestamplist2
+#print timestamplist2
 
 finaltimelist2 = []
 
@@ -138,6 +115,4 @@ for item in timestamplist2:
 	finaltimelist2.append(finalinput)
 
 print finaltimelist2
-"""
-This portion will now try to cut the clips 
-"""
+

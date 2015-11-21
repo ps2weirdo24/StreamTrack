@@ -24,3 +24,6 @@ $RECYCLE.BIN/
 *.wav
 *.flv
 *.mp4
+
+# Compiled Python Files
+*.pyc

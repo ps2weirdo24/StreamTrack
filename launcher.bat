@@ -31,4 +31,4 @@ EXIT
 
 echo "%1's" stream was offline
 
-Exit
+EXIT
