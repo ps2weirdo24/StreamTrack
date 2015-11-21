@@ -1,0 +1,7 @@
+# livestreamer 1.12.2
+# ffmpeg 2.8.2
+librosa == 0.4.1
+matplotlib == 1.4.3
+numpy == 1.9.3
+Twisted == 15.0.0
+unirest == 1.1.7
