@@ -2,7 +2,7 @@
 
 REM %1 = channel , %2 = length of clips , %3 = quality
 
-start python stathandler.py %1 %2 %3
+start /min python stathandler.py %1 %2 %3
 
 timeout /t 5 /nobreak
 
@@ -13,17 +13,17 @@ GOTO %status%
 
 :online
 
-start Capture.bat %1 %3 "%workingdir%"
+start /min Capture.bat %1 %3 "%workingdir%"
 
-cmdow /TH
+REM cmdow /TH
 
 timeout /t %2 /nobreak
 
 taskkill /fi "WINDOWTITLE eq stream_capture_%1" /f /t
 
-start AfterCapture.bat %1 "%workingdir%"
+start /min AfterCapture.bat %1 "%workingdir%"
 
-start launcher.bat %1 %2 %3
+start /min launcher.bat %1 %2 %3
 
 EXIT
 
