@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # This script will take a text file of twitch chat and provide some stats
 # and other helpful information for selecting noteworthy clips
 

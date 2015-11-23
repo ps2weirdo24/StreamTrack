@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python
 """
 
 How to use this script:

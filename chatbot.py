@@ -1,4 +1,4 @@
-#
+#!/usr/bin/env python
 #Username = DrunkandSuch
 #Password = ps2weirdo24
 #AppName = mychatbot

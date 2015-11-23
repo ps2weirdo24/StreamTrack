@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import chat_analysis_lib
 
 chatreader = chat_analysis_lib.ChatAnalysis()
