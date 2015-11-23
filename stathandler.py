@@ -103,6 +103,7 @@ class MainCollect:
 			return False
 		else:
 			self.viewer_count = response.body["stream"]["viewers"]
+			self.game_being_played = response.body["stream"]["game"]
 			self.stream_delay = response.body["stream"]["channel"]["delay"]
 			return True
 
@@ -147,7 +148,7 @@ if not cli.is_online():
 	cli.write_to_log(warn_offline)
 	cli.run()
 else:
-	online_message = "Chat bot initialized.\n    Viewer Count: %s \n    Time Delay: %s" % (str(cli.viewer_count), str(cli.stream_delay))
+	online_message = "Chat bot initialized.\n    Viewer Count: %s \n    Time Delay: %s \n    Game: %s " % (str(cli.viewer_count), str(cli.stream_delay), str(cli.game_being_played))
 	cli.write_to_log(online_message)
 	cli.run()
 

@@ -10,7 +10,7 @@ ffmpeg -i "%2/%1.flv" -c copy -copyts -bsf:a aac_adtstoasc "%2/%1_fixed.mp4"
 
 echo MP4 file conversion complete
 
-timeout /t 5
+timeout /t 5 /nobreak
 
 set a=%2\%1.flv
 set a=%a:/=\%
