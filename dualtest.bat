@@ -1,17 +1,18 @@
 REM This file is to test running multiple stream captures at once, so far it has worked
 @echo off
 
-echo Starting wingsofdeath capture
+echo Starting first capture
+start launcher.bat imaqtpie 1800 high
 
-start launcher.bat wingsofdeath 120 high
+timeout /t 30 /nobreak
 
-timeout /t 15 /nobreak
+echo Starting second capture
+start launcher.bat esl_lol 1800 high
 
-echo Starting mushisgosu capture
+timeout /t 30 /nobreak
 
-start launcher.bat mushisgosu 120 high
-
-echo endind this process
+echo Starting third capture
+start launcher.bat grossie_gore 1800 high
 
 timeout /t 2 /nobreak
 

@@ -49,19 +49,22 @@ class LogBot(irc.IRCClient):
         self.logger = MessageLogger(open(self.factory.filename, "a"))
         self.logger.log("[connected at %s]" % 
                         time.asctime(time.localtime(time.time())))
-        print "Connected!"
+        if not self.factory.silent_console:
+            print "Connected!"
 
     def connectionLost(self, reason):
         irc.IRCClient.connectionLost(self, reason)
         self.logger.log("[disconnected at %s]" % 
                         time.asctime(time.localtime(time.time())))
         self.logger.close()
-        print "Disconnected!"
+        if not self.factory.silent_console:
+            print "Disconnected!"
 
     def signedOn(self):
         """Called when bot has succesfully signed on to server."""
         self.join(self.factory.channel)
-        print "Signed on to the server!"
+        if not self.factory.silent_console:
+            print "Signed on to the server!"
 
     def joined(self, channel):
         """This will get called when the bot joins the channel."""
@@ -71,7 +74,8 @@ class LogBot(irc.IRCClient):
         """This will get called when the bot receives a message."""
         user = user.split('!', 1)[0]
         self.logger.log("<%s> %s" % (user, msg))
-        print (user, msg)
+        if not self.factory.silent_console:
+            print (user, msg)
 
     def action(self, user, channel, msg):
         """This will get called when the bot sees someone do an action."""
@@ -85,10 +89,10 @@ class LogBotFactory(protocol.ClientFactory):
     A new protocol instance will be created each time we connect to the server.
     """
 
-    def __init__(self, channel, filename):
+    def __init__(self, channel, filename, silent_console):
         self.channel = channel
         self.filename = filename
-
+        self.silent_console = silent_console
 
     def buildProtocol(self, addr):
         p = LogBot()
@@ -100,7 +104,8 @@ class LogBotFactory(protocol.ClientFactory):
         connector.connect()
 
     def clientConnectionFailed(self, connector, reason):
-        print "connection failed:", reason
+        if not self.factory.silent_console:
+            print "connection failed:", reason
         reactor.stop()
 
 
@@ -121,7 +126,7 @@ class LogBotFactory(protocol.ClientFactory):
   
 class ChatCollector:
 
-    def __init__(self, channel, output_filename, seconds_runtime):
+    def __init__(self, channel, output_filename, seconds_runtime, silent_console=False):
 
         if channel.startswith("#"):
             self.channel = channel
@@ -129,9 +134,13 @@ class ChatCollector:
             self.channel = "#" + channel
         self.outfile = output_filename
         self.timer = int(seconds_runtime)
+        self.silent_console = silent_console
 
-        log.startLogging(sys.stdout)
-        bot_instance = LogBotFactory(self.channel, self.outfile)
+        if not self.silent_console:
+            log.startLogging(sys.stdout)
+        else:
+            pass
+        bot_instance = LogBotFactory(self.channel, self.outfile, self.silent_console)
         reactor.connectTCP("irc.twitch.tv", 6667, bot_instance)
 
     def start(self):
@@ -141,5 +150,5 @@ class ChatCollector:
 
 if __name__ == '__main__':
 
-    mybot = ChatCollector("clgdoublelift", "firsttry.txt", 30)
+    mybot = ChatCollector("c9sneaky", "firsttry.txt", 30, silent_console=True)
     mybot.start()
